@@ -3,8 +3,14 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+def get_db
+	db = SQLite3::Database.new 'barbershop.db' #обращаемся к базе
+	db.results_as_hash = true #преобразуем результаты выборки из базы к хэшу
+	return db #здесь return - обязателен
+end
+
 configure do
-db = SQLite3::Database.new 'barbershop.db'
+db = get_db
 db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
 			(
 				"Id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL,
@@ -72,11 +78,4 @@ get '/showusers' do
 	db = get_db
 	@results = db.execute 'select * from Users order by Id desc'
 	erb :showusers
-end
-
-
-def get_db
-	db = SQLite3::Database.new 'barbershop.db' #обращаемся к базе
-	db.results_as_hash = true #преобразуем результаты выборки из базы к хэшу
-	return db #здесь return - обязателен
 end
