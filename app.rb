@@ -63,6 +63,12 @@ post '/visit' do
 
 end
 
+get '/showusers' do
+  erb "Hello World"
+end
+
 def get_db
-	return SQLite3::Database.new 'barbershop.db' #здесь return - обязателен
+	db = SQLite3::Database.new 'barbershop.db' #обращаемся к базе
+	db.results_as_hash = true #преобразуем результаты выборки из базы к хэшу
+	return db #здесь return - обязателен
 end
