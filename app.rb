@@ -14,6 +14,11 @@ db.execute 'CREATE TABLE IF NOT EXISTS "Users"
 				"Barber" VARCHAR,
 				"Color" VARCHAR
 			)'
+db.execute 'CREATE TABLE IF NOT EXISTS "Barbers" 
+			(
+				"Id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL,
+				"Name" VARCHAR
+			)'			
 end
 
 get '/' do
@@ -64,8 +69,11 @@ post '/visit' do
 end
 
 get '/showusers' do
-  erb "Hello World"
+	db = get_db
+	@results = db.execute 'select * from Users order by Id desc'
+	erb :showusers
 end
+
 
 def get_db
 	db = SQLite3::Database.new 'barbershop.db' #обращаемся к базе
