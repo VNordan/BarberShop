@@ -4,16 +4,17 @@ require 'sinatra/reloader'
 require 'sqlite3'
 
 configure do
-	@db = SQlite3::Database.new "barbershop.sqlite" #создать подключение к barbershop.db (если её ещё нет - создать)
-	@db.execute 'CREATE TABLE IF NOT EXISTS "Users"
-				(
-					"Id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL,
-					"Name" VARCHAR,
-					"Phone" VARCHAR,
-					"DateStamp" VARCHAR,
-					"Barber" VARCHAR,
-					"Color" VARCHAR
-				)'
+@db = SQLite3::Database.new 'barbershop.db'
+
+@db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
+			(
+				"Id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL,
+				"Name" VARCHAR,
+				"Phone" VARCHAR,
+				"DateStamp" VARCHAR,
+				"Barber" VARCHAR,
+				"Color" VARCHAR
+			)'
 end
 
 get '/' do
