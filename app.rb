@@ -4,7 +4,7 @@ require 'sinatra/reloader'
 require 'sqlite3'
 
 configure do
-db = get_db
+db = SQLite3::Database.new 'barbershop.db'
 db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
 			(
 				"Id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL,
